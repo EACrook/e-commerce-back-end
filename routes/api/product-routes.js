@@ -65,10 +65,11 @@ router.post('/', (req, res) => {
     });
 });
 
+// 5 4 3 1
 // update product
 router.put('/:id', (req, res) => {
   // update product data
-  Product.update(req.body, {
+  Product.update({price: req.body.price}, {
     where: {
       id: req.params.id,
     },
@@ -78,6 +79,7 @@ router.put('/:id', (req, res) => {
       return ProductTag.findAll({ where: { product_id: req.params.id } });
     })
     .then((productTags) => {
+      console.log('Product tagssss', productTags)
       // get list of current tag_ids
       const productTagIds = productTags.map(({ tag_id }) => tag_id);
       // create filtered list of new tag_ids
